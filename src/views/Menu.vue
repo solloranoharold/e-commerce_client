@@ -1,7 +1,6 @@
 <template>
     <v-container fluid>
         <VerticalNavBarVue v-if="userInfo == null || userInfo.type!='ADMIN'"/>
-        <AdminNavBar v-if="userInfo && userInfo.type=='ADMIN'"/>
     <v-layout class="pt-4" v-if="userInfo && userInfo.type=='ADMIN'">
         <v-spacer/>
         <v-btn small v-if="addedit==true" @click="addedit = !addedit" dark color="primary" > <v-icon>mdi-eye</v-icon>SHOW MENU </v-btn>
@@ -28,7 +27,7 @@
                             <v-card-text>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-img max-width="250"  :src="`${filelister}/products/${item.img_product}`" />
+                                        <v-img max-width="250"  :src="`${filelister}products/${item.img_product}`" />
                                     </v-col>
                                     <v-col>
                                         <span style="font-weight:bold;font-size:17px">{{ item.product_name }}</span>
@@ -36,9 +35,9 @@
                                     <v-col>
                                         <h1>P<span style="font-weight:bold;font-size:17px"><i>{{parseFloat(item.product_price).toFixed(2)}}</i></span></h1>
                                     </v-col>
-                                    <v-col cols="12">
+                                    <!-- <v-col cols="12">
                                         <v-rating background-color="yellow lighten-3" :value="item.ratings" color="yellow"></v-rating>
-                                    </v-col>
+                                    </v-col> -->
                                     <v-col cols="12" v-if="item.status!=1">
                                        <h2 class="text-center"><i style="color:red;">PRODUCT IS NOT AVAILABLE</i></h2>
                                     </v-col>
@@ -68,7 +67,7 @@
                             <v-card-text>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-img :src="`${filelister}/products/${item.img_product}`" />
+                                        <v-img :src="`${filelister}products/${item.img_product}`" />
                                     </v-col>
                                     <v-col>
                                         <span style="font-weight:bold;font-size:17px">{{ item.product_name }}</span>
@@ -76,9 +75,9 @@
                                     <v-col>
                                         <h1>P<span style="font-weight:bold;font-size:17px"><i>{{parseFloat(item.product_price).toFixed(2)}}</i></span></h1>
                                     </v-col>
-                                    <v-col cols="12">
+                                    <!-- <v-col cols="12">
                                         <v-rating background-color="yellow lighten-3" :value="item.ratings" color="yellow"></v-rating>
-                                    </v-col>
+                                    </v-col> -->
                                
                                     <v-col cols="12" v-if="item.status!=1">
                                        <h2 class="text-center"><i style="color:red;">PRODUCT IS NOT AVAILABLE</i></h2>
@@ -109,7 +108,7 @@
                             <v-card-text>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-img max-width="250"  :src="`${filelister}/products/${item.img_product}`" />
+                                        <v-img max-width="250"  :src="`${filelister}products/${item.img_product}`" />
                                     </v-col>
                                     <v-col>
                                         <span style="font-weight:bold;font-size:17px">{{ item.product_name }}</span>
@@ -117,9 +116,9 @@
                                     <v-col>
                                         <h1>P<span style="font-weight:bold;font-size:17px"><i>{{parseFloat(item.product_price).toFixed(2)}}</i></span></h1>
                                     </v-col>
-                                    <v-col cols="12">
+                                    <!-- <v-col cols="12">
                                         <v-rating background-color="yellow lighten-3" :value="item.ratings" color="yellow"></v-rating>
-                                    </v-col>
+                                    </v-col> -->
                                     <v-col cols="12" v-if="item.status!=1">
                                        <h2 class="text-center"><i style="color:red;">PRODUCT IS NOT AVAILABLE</i></h2>
                                     </v-col>
@@ -157,10 +156,10 @@
                             <label>CATEGORY </label>
                             <v-autocomplete v-model="addObj.category" :items="Categories" item-text="text" item-value="no" dark hide-details class="text1" outlined dense></v-autocomplete>
                          </v-col>
-                        <v-col cols="6">
+                        <!-- <v-col cols="6">
                             <label>RATINGS</label>
                             <v-text-field v-model="addObj.ratings" dark hide-details class="text1" value="0.00" min="1" outlined dense  type="number"></v-text-field>
-                        </v-col>
+                        </v-col> -->
                         <v-col cols="6">
                             <label>PRICE</label>
                             <v-text-field v-model="addObj.product_price" dark hide-details class="text1" value="0.00" min="1" max="100" outlined dense  type="number"></v-text-field>
@@ -175,7 +174,7 @@
                         </v-col>
                         <v-col cols="12" v-if="editedIndex>-1">
                             <label>IMAGE</label><br/>
-                           <v-img max-width="300" :src="`${filelister}/products/${addObj.img_product}`"/>
+                           <v-img max-width="300" :src="`${filelister}products/${addObj.img_product}`"/>
                         </v-col>
                     </v-row>
                     <v-layout>
@@ -198,12 +197,12 @@
                         <v-row >
                             <v-col cols="7">
                                 <center>
-                                    <v-img  max-width="350" :src="`${filelister}/products/${obj.img_product}`" />
+                                    <v-img  max-width="350" :src="`${filelister}products/${obj.img_product}`" />
                                 </center>
                             </v-col>
                             <v-col>
                                 <h2 >{{ obj.product_name  }}</h2>
-                                <v-rating background-color="yellow lighten-3" :value="obj.ratings" color="yellow" small></v-rating>
+                                <!-- <v-rating background-color="yellow lighten-3" :value="obj.ratings" color="yellow" small></v-rating> -->
                                 <h1 >P<span style="font-weight:bold;font-size:17px"><i>{{parseFloat(obj.product_price).toFixed(2)}}</i></span></h1>
                                 <strong>Quantity</strong> : 
                                 <span>
@@ -229,12 +228,11 @@
 
 <script>
 import VerticalNavBarVue from './VerticalNavBar.vue';
-import AdminNavBar from './AdminNavBar.vue'
 import axios from 'axios'
 import TotalandDelivery from './TotalandDelivery.vue';
 export default {
     components: {
-        VerticalNavBarVue,AdminNavBar,TotalandDelivery
+        VerticalNavBarVue,TotalandDelivery
     },
     data: () => ({
         tab:'',
@@ -261,6 +259,7 @@ export default {
         obj:{}
     }),
     created(){
+        
         this.loadProducts()
         this.loadMyCart()
         this.loadNotifications()
@@ -355,7 +354,7 @@ export default {
             }
         },
         insertUpdateProduct(){
-            if(!this.addObj.product_name || !this.addObj.product_price || !this.addObj.img_product || !this.addObj.ratings || !this.addObj.category){
+            if(!this.addObj.product_name || !this.addObj.product_price || !this.addObj.img_product  || !this.addObj.category){
                 alert('Complete all Fields!')
                 return false 
             }

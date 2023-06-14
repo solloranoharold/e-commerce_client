@@ -1,7 +1,5 @@
 <template>
     <v-container fluid>
-        <VerticalNavBarVue v-if="userInfo == null || userInfo.type!='ADMIN'"/>
-        <AdminNavBar v-if="userInfo && userInfo.type=='ADMIN'"/>
        
         <v-layout class="pt-4">
         <v-spacer/>
@@ -37,11 +35,10 @@
 </template>
 
 <script>
-import AdminNavBar from './AdminNavBar.vue'
 import axios from 'axios'
 export default {
     components: {
-      AdminNavBar
+      
     },
     data: () => ({
         Shippings:[],

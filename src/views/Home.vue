@@ -3,7 +3,7 @@
   <v-row>
       <v-col cols="12">
          <VerticalNavBarVue v-if="userInfo == null || userInfo.type!='ADMIN'"/>
-        <AdminNavBar v-if="userInfo && userInfo.type=='ADMIN'"/>
+         <AdminNavBarVue v-if="userInfo && userInfo.type=='ADMIN'"/>
         </v-col>
         <v-col cols="12">
           <v-container fluid style="background-color:#B71C1C;">
@@ -32,13 +32,14 @@
 </template>
 
 <script>
+
+import AdminNavBarVue from './AdminNavBar.vue'
 import VerticalNavBarVue from './VerticalNavBar.vue'
-import AdminNavBar from './AdminNavBar.vue'
 import axios from 'axios'
 export default {
   name: 'Home',
   components: {
-    VerticalNavBarVue,AdminNavBar
+    VerticalNavBarVue,AdminNavBarVue
   },
   data: () => ({
     Products:[],

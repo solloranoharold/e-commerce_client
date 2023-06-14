@@ -33,7 +33,7 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td align="left" style="font-weight:bold;">PHP : {{ total_computation.toFixed(2) }}</td>
+                                    <td align="left" style="font-weight:bold;">PHP : {{ total_computation ? total_computation.toFixed(2) : 0 }}</td>
                                 </tr>
                             </tbody>
                         </v-simple-table>
@@ -61,7 +61,7 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td align="left" style="font-weight:bold;">PHP : {{ total_computation.toFixed(2) }}</td>
+                                    <td align="left" style="font-weight:bold;">PHP : {{ total_computation? total_computation.toFixed(2) : 0 }}</td>
                                 </tr>
                               </tbody>
                         </v-simple-table>
@@ -71,6 +71,7 @@
                     <v-layout>
                         <h3>Mode of Payment : </h3>
                         <v-spacer/>
+                        
                         <v-radio-group
                         v-model="typeOfPayment"
                         small
@@ -86,7 +87,27 @@
                         ></v-radio>
                         </v-radio-group>
                     </v-layout>
-
+                    <div v-if="typeOfPayment=='Gcash'">
+                        <h3 class="text-center">UPLOAD YOUR RECEIPT HERE</h3>
+                        <v-divider style="border:1px solid;"/>
+                        <v-file-input
+                        v-model="file"
+                        @blur="saveDocument()"
+                        placeholder="Upload your Receipt Image"
+                        label="File input"
+                        prepend-icon="mdi-paperclip"
+                    >
+                        <template v-slot:selection="{ text }">
+                        <v-chip
+                            small
+                            label
+                            color="primary"
+                        >
+                            {{ text }}
+                        </v-chip>
+                        </template>
+                    </v-file-input>
+                    </div>
                     <v-btn @click="Proceed()" rounded block outlined dark color="green darken-2"> <v-icon >mdi-cart</v-icon>PROCEED</v-btn>
 
                 </v-container>
@@ -99,10 +120,14 @@
 
 <script>
 import axios from 'axios'
+import moment  from 'moment'
 export default {
     data:()=>({
+        total_computation:0,
         shipping_price: 0 ,
-        typeOfPayment:''
+        typeOfPayment:'',
+        file:null,
+        receipt:null
     }),
     props:['dialog' , 'type' , 'data' ],
     watch:{
@@ -121,30 +146,57 @@ export default {
                     this.shipping_price = res.data[0].fees
 
                     if(this.type == 'buynow'){
-                        this.total_computation = this.data.total_price - this.shipping_price
+                        this.total_computation = this.data.total_price + this.shipping_price
                     }else{
                         let amount = 0 
                         this.data.forEach(rec=>{ 
                             amount += rec.total_price
                         })
-                        this.total_computation =  amount - this.shipping_price
+                        this.total_computation =  amount + this.shipping_price
                     }
 
 
                 }   
             })
         },
-      
+        saveDocument(){
+        if(this.file){
+            let formdata = new FormData()
+            let addObj={}
+            addObj.receipt  = moment().format('YYYYMMDDHHmmss')+'_'+this.file.name
+            formdata.append('addObj',JSON.stringify(addObj))
+            formdata.append('file' , this.file )
+            axios.post(`${this.api}uploadReceipt`, formdata, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    dataType: 'json',
+                }
+            }).then(res=>{
+                this.receipt=  addObj.receipt 
+                console.log(res.data)
+            })
+        }
+    },
         Proceed(){
             if(!this.typeOfPayment){
                 alert('Please select MODE OF PAYMENT')
                 return false
+            }
+            if(this.typeOfPayment == 'Gcash'){
+                if(!this.file){
+                    alert('Please upload your receipt first!')
+                    return false 
+                }
+            }else{
+                this.receipt= null
+                this.file = null
             }
             if(confirm('Are you sure you want to order this item/s')){
                 let order={ 
                 data : this.data , 
                 type: this.type ,
                 total: this.total_computation,
+                receipt: this.receipt,
                 shipping : this.shipping_price,
                 payment: this.typeOfPayment,
                 account : this.userInfo.acc_id,
@@ -153,6 +205,8 @@ export default {
                 axios.post(`${this.api}proceedPayment` , order).then(res=>{ 
                     if(res.data){
                         alert('Data has been ordered!');
+                        this.receipt=null
+                        this.file = null
                         this.close()
                     }
                 })

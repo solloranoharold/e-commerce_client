@@ -9,16 +9,17 @@ const myPlugins = {
         Vue.mixin({
             data: () => ({
                 api: process.env.VUE_APP_URL,
+                filelister: process.env.VUE_APP_FILELISTER,
                 MyCart:[],
             }),
             computed: {
                 ...mapState([
-                    'userInfo','Notifications'
+                    'userInfo','Notifications','notseen'
                 ]),
             },
             methods: {
                 ...mapMutations([
-                    'STORE_USERINFO','STORE_NOTIFICATIONS'
+                    'STORE_USERINFO','STORE_NOTIFICATIONS','NOT_SEEN'
                 ]),
                 loadMyCart(){
                     axios.get(`${this.api}loadCart/${this.userInfo.acc_id}`).then(res=>{ 
@@ -39,6 +40,10 @@ const myPlugins = {
                     let id = this.userInfo.fullname !='ADMINISTRATOR' ?  this.userInfo.acc_id : -1 
                       axios.get(`${this.api}loadLogs/${id}`).then(res=>{ 
                         if(res.data){
+                         let noseen = res.data.filter(rec=>{
+                            return rec.notify == 1 
+                         }).length
+                         this.$store.commit('NOT_SEEN' ,noseen )
                          this.$store.commit('STORE_NOTIFICATIONS' , _.orderBy( res.data  , ['createDate'],['desc']))
                         }
                       })

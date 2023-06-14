@@ -13,6 +13,7 @@ import About from '../views/About.vue'
 //ADMIN
 import ShippingFee from '../views/ShippingFees.vue'
 import Accounts from '../views/Accounts.vue'
+import Reports from '../views/Admin/Reports.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -71,6 +72,11 @@ const routes = [
     path: '/accounts',
     name: 'About',
     component: Accounts
+  },
+  {
+    path: '/reports',
+    name: 'Reports',
+    component: Reports
   },
 ]
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="green darken-2 d-md-block d-lg-block d-none">
+        <!-- <div class="green darken-2 d-md-block d-lg-block d-none">
             <center>
                 <a @click="$router.push('/')" style="color:white;padding-left:30px;font-size:20px" dark>HOME</a>
                 <a @click="$router.push('/menu')" style="color:white;padding-left:30px;font-size:20px" dark>ITEMS</a>
@@ -13,11 +13,11 @@
                 <a @click="$router.push('/menu')" style="color:white;padding-left:30px;font-size:20px" dark>ITEMS</a>
                 <a @click="$router.push('/myoders')" style="color:white;padding-left:30px;font-size:20px" dark>MAINTENANCE</a>
         </center>
-        </div>
-        <v-container fluid style="background-color:#B71C1C;">
+        </div> -->
+        <v-container fluid style="background-color:#B71C1C;" v-if="$route.name=='Home'">
         <v-carousel hide-delimiters  cycle  
         hide-delimiter-background>
-            <v-carousel-item v-for="(item , i ) in Products" :key="i" :src="`${filelister}/products/${item.img_product}`">
+            <v-carousel-item v-for="(item , i ) in Products" :key="i" :src="`http://:3001/ftp/uploads/products/${item.img_product}`">
                 <v-overlay absolute>
                     <h2 style="color:white; " class=" text-center header">EDWIN YAP</h2>
                     <h4 style="color:white;" class="text-center banner1">LECHON</h4>

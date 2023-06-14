@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   plugins:[createPersistedState()],
   state: {
-    userInfo:null ,Notifications:[]
+    userInfo:null ,Notifications:[],notseen:0
   },
   mutations: {
     STORE_USERINFO : (state , newState )=>{
@@ -14,6 +14,9 @@ export default new Vuex.Store({
     },
     STORE_NOTIFICATIONS : (state , newState )=>{
       state.Notifications = newState
+    },
+    NOT_SEEN : (state , newState )=>{
+      state.notseen = newState
     },
   },
   actions: {

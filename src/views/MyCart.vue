@@ -1,10 +1,11 @@
 <template>
     <v-container fluid>
         <VerticalNavBarVue v-if="userInfo == null || userInfo.type!='ADMIN'"/>
-        <AdminNavBar v-if="userInfo && userInfo.type=='ADMIN'"/>
        
       <v-container>
         <v-btn block v-if="selectedItem.length > 0 " @click="dialog = !dialog" rounded dark color="green darken-2"><v-icon>mdi-cart</v-icon> PROCEED TO CHECK OUT  </v-btn>
+        <v-btn block v-if="selectedItem.length > 0 " @click="deleteFromCart()" rounded dark color="red darken-2"><v-icon>mdi-delete</v-icon> DELETE CART  </v-btn>
+        
         <br/><br/>
         <v-simple-table dense style=" border-collapse: collapse;">
         <thead>
@@ -23,7 +24,7 @@
                <td > <input type="checkbox" :value="item" v-model="selectedItem" class="larger"/></td>
                <td align="center" style="padding:0px;">
                
-                <v-img class="pr-5" max-width="100" :src="`${filelister}/products/${item.img_product}`" />
+                <v-img class="pr-5" max-width="100" :src="`${filelister}products/${item.img_product}`" />
                 </td>
                 <td align="center"><h3>{{ item.product_name }}</h3></td>
                <td align="center">{{ item.quantity }}</td>
@@ -40,11 +41,11 @@
 
 <script>
 import VerticalNavBarVue from './VerticalNavBar.vue';
-import AdminNavBar from './AdminNavBar.vue'
 import TotalandDelivery from './TotalandDelivery.vue'; 
+import axios from 'axios'
 export default {
     components: {
-    VerticalNavBarVue,AdminNavBar,TotalandDelivery
+    VerticalNavBarVue,TotalandDelivery
   },
   created(){
     this.loadMyCart()
@@ -65,6 +66,14 @@ export default {
     closeDialog(val){
         this.dialog = val 
         window.location.reload()
+    },
+    deleteFromCart(){
+      axios.post(`${this.api}deleteToCart` , this.selectedItem).then(res=>{ 
+        if(res.data){
+          alert('Selected item has been deleted!')
+          window.location.reload()
+        }
+      })
     }
    }
 }

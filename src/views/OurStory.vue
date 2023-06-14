@@ -8,7 +8,7 @@
         <v-col>
           <v-row>
            
-            <v-col cols="6">
+            <!-- <v-col cols="6">
               <center>
                 <h2 class="text-center">PICKUP</h2>
               <v-avatar
@@ -19,8 +19,8 @@
                   <v-img  src="../assets/referrence/pickup.jpg"></v-img>
                 </v-avatar>
               </center>
-            </v-col>
-            <v-col  cols="6">
+            </v-col> -->
+            <v-col  cols="12">
               <center>
                 <h2 class="text-center">DELIVERY</h2>
               <v-avatar
@@ -43,7 +43,7 @@
               <h1 style="color:white;font-family:'FeelingPassionate' ;">Edwin's Yap Lechon</h1>
               <v-divider style="border:1px solid white"/>
               <br/>
-              <p style="color:white;font-size: 15px;">
+              <p style="color:white;font-size: 20px;">
                 Edwin's Yap Pork Lechon established 5 years ago but his business started 30 years ago and was named from his late wife Ellie's Yap.
                 He adopted their family business from his childhood, inherit the taste and processing from his parents namely Eddie's Yap Pork Lechon 60 years ago
                 Cavite City's most famous and all times favorite Pork Lechon every now and then.
