@@ -290,7 +290,7 @@ export default {
             this.totalBuyandCart = val 
         },
         evalQuantity( opr , item){
-            console.log(opr , item )
+            // console.log(opr , item )
             if(opr=='-'){
                 if(item.quantity <= 1 ){
                     item.quantity = 1 

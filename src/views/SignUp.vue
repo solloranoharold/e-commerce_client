@@ -17,6 +17,7 @@
             <v-flex md3 lg3 xs6 sm6 >
                 <v-card style="border:1px solid;" flat >
                     <v-card-text>
+                        <v-form>
                         <h2>Create new Account</h2>
                         <h3>Already Registered ? <a @click="$router.push('/login')">Login Here </a></h3>
                         <br/><br/>
@@ -36,6 +37,7 @@
                         <label style="text-align:left;">COMPLETE ADDRESS</label>
                         <v-textarea v-model="addObj.address"  dark hide-details class="text" outlined dense ></v-textarea>
                         <br />
+                        </v-form>
                         <v-btn dark class="green darken-2" @click="signUp()">SIGN UP</v-btn>
                     </v-card-text>
                 </v-card>
@@ -58,8 +60,8 @@
                         :num-inputs="6"
                         :should-auto-focus="true"
                         :is-input-num="false"
-                        @on-change="handleOnChange"
-                        @on-complete="handleOnComplete"
+                        @on-change="handleOnChange()"
+                        @on-complete="handleOnComplete()"
                         />
                         <v-btn block @click="verifyOTP()">SEND</v-btn>
                     </center>
@@ -112,11 +114,11 @@ export default {
     
     methods:{
         handleOnComplete(value) {
-            console.log('OTP changed: ', value);
+            // console.log('OTP changed: ', value);
             this.otp = value
         },
         handleOnChange(value) {
-            console.log('OTP changed: ', value);
+            // console.log('OTP changed: ', value);
             this.otp = value
         },
         loadShippings(){

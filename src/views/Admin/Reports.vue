@@ -252,7 +252,7 @@ export default {
         loadYears(){
             axios.get(`${this.api}loadYears`).then(res=>{ 
                 if(res.data){
-                    console.log(res.data)
+                    // console.log(res.data)
                     this.Years = res.data
                 }
             })
@@ -288,7 +288,7 @@ export default {
                         backgroundColor: `#${Math.floor(Math.random()*16777215).toString(16)}`,
                         data: data
                     }]
-                    console.log(this.chartData)
+                    // console.log(this.chartData)
                     this.Records = res.data 
                     this.loading=false
                 }

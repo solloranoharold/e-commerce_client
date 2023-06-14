@@ -243,7 +243,7 @@ components: {
                     axios.post(`${this.api}getProductOrders` , res.data).then(res1=>{ 
                         if(res1.data){
                             this.Orders = _.orderBy(res1.data, ['DateCreated'],['desc'])
-                            console.log(res1.data)
+                            // console.log(res1.data)
                         }
                     })
                 }

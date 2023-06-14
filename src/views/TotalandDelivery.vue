@@ -142,7 +142,7 @@ export default {
         loadShippingFee(){
             axios.get(`${this.api}getShippingFee/${this.userInfo.shipping_id}`).then(res=>{ 
                 if(res.data){
-                    console.log(res.data)
+                    // console.log(res.data)
                     this.shipping_price = res.data[0].fees
 
                     if(this.type == 'buynow'){
