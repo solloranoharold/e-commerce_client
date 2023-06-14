@@ -28,7 +28,7 @@
                             <v-card-text>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-img max-width="250"  :src="`http://localhost:3001/ftp/uploads/products/${item.img_product}`" />
+                                        <v-img max-width="250"  :src="`${filelister}/products/${item.img_product}`" />
                                     </v-col>
                                     <v-col>
                                         <span style="font-weight:bold;font-size:17px">{{ item.product_name }}</span>
@@ -68,7 +68,7 @@
                             <v-card-text>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-img :src="`http://localhost:3001/ftp/uploads/products/${item.img_product}`" />
+                                        <v-img :src="`${filelister}/products/${item.img_product}`" />
                                     </v-col>
                                     <v-col>
                                         <span style="font-weight:bold;font-size:17px">{{ item.product_name }}</span>
@@ -109,7 +109,7 @@
                             <v-card-text>
                                 <v-row no-gutters>
                                     <v-col cols="12">
-                                        <v-img max-width="250"  :src="`http://localhost:3001/ftp/uploads/products/${item.img_product}`" />
+                                        <v-img max-width="250"  :src="`${filelister}/products/${item.img_product}`" />
                                     </v-col>
                                     <v-col>
                                         <span style="font-weight:bold;font-size:17px">{{ item.product_name }}</span>
@@ -175,7 +175,7 @@
                         </v-col>
                         <v-col cols="12" v-if="editedIndex>-1">
                             <label>IMAGE</label><br/>
-                           <v-img max-width="300" :src="`http://localhost:3001/ftp/uploads/products/${addObj.img_product}`"/>
+                           <v-img max-width="300" :src="`${filelister}/products/${addObj.img_product}`"/>
                         </v-col>
                     </v-row>
                     <v-layout>
@@ -198,7 +198,7 @@
                         <v-row >
                             <v-col cols="7">
                                 <center>
-                                    <v-img  max-width="350" :src="`http://localhost:3001/ftp/uploads/products/${obj.img_product}`" />
+                                    <v-img  max-width="350" :src="`${filelister}/products/${obj.img_product}`" />
                                 </center>
                             </v-col>
                             <v-col>

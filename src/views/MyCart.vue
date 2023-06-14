@@ -23,7 +23,7 @@
                <td > <input type="checkbox" :value="item" v-model="selectedItem" class="larger"/></td>
                <td align="center" style="padding:0px;">
                
-                <v-img class="pr-5" max-width="100" :src="`http://localhost:3001/ftp/uploads/products/${item.img_product}`" />
+                <v-img class="pr-5" max-width="100" :src="`${filelister}/products/${item.img_product}`" />
                 </td>
                 <td align="center"><h3>{{ item.product_name }}</h3></td>
                <td align="center">{{ item.quantity }}</td>

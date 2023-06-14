@@ -16,7 +16,7 @@
                       color="grey"
                       size="250"
                     >
-                      <v-img :src="`http://localhost:3001/ftp/uploads/products/${item.img_product}`"></v-img>
+                      <v-img :src="`${filelister}products/${item.img_product}`"></v-img>
                       <v-overlay absolute  class="d-none a">
                         {{item.product_name}}
                       </v-overlay>
