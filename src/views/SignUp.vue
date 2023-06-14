@@ -54,6 +54,7 @@
                     <h4 class="text-center"> Please check </h4>
                     <center>
                         <v-otp-input
+                        v-model="otp"
                         ref="otpInput"
                         input-classes="otp-input"
                         separator="-"
