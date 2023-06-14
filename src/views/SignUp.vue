@@ -114,11 +114,11 @@ export default {
     
     methods:{
         handleOnComplete(value) {
-            // console.log('OTP changed: ', value);
+            console.log('OTP changed: ', value);
             this.otp = value
         },
         handleOnChange(value) {
-            // console.log('OTP changed: ', value);
+            console.log('OTP changed: ', value);
             this.otp = value
         },
         loadShippings(){
