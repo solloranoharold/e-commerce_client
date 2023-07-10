@@ -275,6 +275,16 @@ export default {
     },
     updateProfile(){
       this.userInfo.method = 1 
+      if(!this.userInfo.cpass){
+        if(confirm('Are you sure you want to change your information without changing password? ')){
+            axios.post(`${this.api}addEditAccount` , this.userInfo).then(res=>{
+              if(res.data){
+                alert('Profile has been updated!')
+                this.dialog = !this.dialog
+              }
+            })
+        }
+      }
       if(this.userInfo.password.toUpperCase() == this.userInfo.cpass.toUpperCase()){
         axios.post(`${this.api}addEditAccount` , this.userInfo).then(res=>{
           if(res.data){
