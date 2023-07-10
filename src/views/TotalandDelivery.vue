@@ -1,8 +1,9 @@
 <template>
    <v-container fluid>
     <v-dialog v-model="dialog" persistent scrollable max-width="600px"  transition="dialog-bottom-transition">
-        <v-card>
-            <v-toolbar flat dense dark color="green darken-2">
+      
+        <v-card >
+            <v-toolbar flat dense dark color="green darken-2" v->
                 <v-toolbar-title><v-icon large>mdi-cart</v-icon>Checkout</v-toolbar-title>
                 <v-spacer/>
                 <v-icon @click="close()">mdi-close</v-icon>
@@ -108,7 +109,7 @@
                         </template>
                     </v-file-input>
                     </div>
-                    <v-btn @click="Proceed()" rounded block outlined dark color="green darken-2"> <v-icon >mdi-cart</v-icon>PROCEED</v-btn>
+                    <v-btn @click="Proceed()" rounded block outlined dark color="green darken-2" :loading="loading" > <v-icon >mdi-cart</v-icon>PROCEED</v-btn>
 
                 </v-container>
             </v-card-text>
@@ -123,6 +124,7 @@ import axios from 'axios'
 import moment  from 'moment'
 export default {
     data:()=>({
+        loading:false , 
         total_computation:0,
         shipping_price: 0 ,
         typeOfPayment:'',
@@ -192,6 +194,7 @@ export default {
                 this.file = null
             }
             if(confirm('Are you sure you want to order this item/s')){
+                this.loading=true
                 let order={ 
                 data : this.data , 
                 type: this.type ,
@@ -207,6 +210,7 @@ export default {
                         alert('Data has been ordered!');
                         this.receipt=null
                         this.file = null
+                        this.loading = false 
                         this.close()
                     }
                 })
