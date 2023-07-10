@@ -93,7 +93,7 @@
                         <v-divider style="border:1px solid;"/>
                         <v-file-input
                         v-model="file"
-                        @blur="saveDocument()"
+                        @change="saveDocument()"
                         placeholder="Upload your Receipt Image"
                         label="File input"
                         prepend-icon="mdi-paperclip"
