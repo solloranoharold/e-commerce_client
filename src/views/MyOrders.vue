@@ -129,8 +129,16 @@
                     <v-toolbar-title>{{ addObj.invoice_id }}  ( {{ addObj.orderStatus == 1 ? 'PENDING' : addObj.orderStatus == 2 ? 'FOR DELIVERY' : addObj.orderStatus==3 ? 'CANCELLED':'DELIVERED' }} )</v-toolbar-title>
                     <v-spacer/>
                     <v-icon @click="dialog = !dialog">mdi-close</v-icon>
+                   
                 </v-toolbar>
-                <v-card-text>
+                <v-card-text v-if="dialog==true">
+                    <span ><strong>Personal Information : </strong></span>
+                    <span>{{addObj.email}} ( {{addObj.fullname}} )</span>
+                    <br/>
+                    <span><strong>Address : </strong> </span> 
+                    <span> {{addObj.address.toUpperCase()}} </span>
+                     <span> {{addObj.brgy.toUpperCase()}}</span>
+                    <span>  {{addObj.municipality.toUpperCase()}}</span>
                     <v-simple-table dense>
                         <thead>
                             <tr>
@@ -242,8 +250,9 @@ components: {
                 if(this.userInfo.type=='USER'){
                     axios.post(`${this.api}getProductOrders` , res.data).then(res1=>{ 
                         if(res1.data){
+                            console.log(res1.data)
                             this.Orders = _.orderBy(res1.data, ['DateCreated'],['desc'])
-                            // console.log(res1.data)
+                            console.log(res1.data)
                         }
                     })
                 }
@@ -254,7 +263,9 @@ components: {
 
     viewOrder( item ){
         this.dialog = !this.dialog
+        
         this.addObj = JSON.parse(JSON.stringify(item))
+        console.log(this.addObj)
         axios.get(`${this.api}loadInvoiceOrders/${item.invoice_id}`).then(res=>{
             if(res.data){
                 this.specificOrders = res.data 
