@@ -274,11 +274,13 @@ components: {
         })
     },
     updateStatus(item , val ){
-        if(confirm('Are you sure you want to update this order ? ')){
-            item.orderStatus = val 
+         item.orderStatus = val 
+        let status =  item.orderStatus == 1 ? 'PENDING' : item.orderStatus == 2 ? 'FOR DELIVERY' : item.orderStatus==3 ? 'CANCEL':'FINISHED' 
+        if(confirm(`Are you sure you want to ${status} this order ? `)){
+           
             axios.post(`${this.api}updateOrderStatus` , item ).then(res=>{
                 if(res.data){
-                    alert('Data has been updated!')
+                    alert(`Data has been ${status}`)
                     this.loadOrders()
                 }
             })
