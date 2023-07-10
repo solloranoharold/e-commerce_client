@@ -90,6 +90,8 @@
                     </v-layout>
                     <div v-if="typeOfPayment=='Gcash'">
                         <h3 class="text-center">UPLOAD YOUR RECEIPT HERE</h3>
+                        <h4 class="text-center">SEND HERE :  <i style="color:blue">0997-7251-8667</i></h4>
+                       
                         <v-divider style="border:1px solid;"/>
                         <v-file-input
                         v-model="file"
@@ -109,14 +111,14 @@
                         </template>
                     </v-file-input>
                     </div>
-                    <v-btn @click="Proceed()" rounded block outlined dark color="green darken-2" :loading="loading" > <v-icon >mdi-cart</v-icon>PROCEED</v-btn>
-
+                    <v-btn @click="Proceed()" rounded block outlined dark color="green darken-2" :loading="loading" :disabled="loadimg==true" > <v-icon >mdi-cart</v-icon>PROCEED</v-btn>
+                    <h4 class="text-center" v-if="loadimg==true">WAIT FOR YOUR RECEIPT TO BE UPLOADED</h4>
                 </v-container>
             </v-card-text>
         </v-card>
     </v-dialog>
     
-    </v-container>
+    </v-container> 
 </template>
 
 <script>
@@ -129,7 +131,8 @@ export default {
         shipping_price: 0 ,
         typeOfPayment:'',
         file:null,
-        receipt:null
+        receipt:null,
+        loadimg:false 
     }),
     props:['dialog' , 'type' , 'data' ],
     watch:{
@@ -163,6 +166,7 @@ export default {
         },
         saveDocument(){
         if(this.file){
+            this.loadimg = true 
             let formdata = new FormData()
             let addObj={}
             addObj.receipt  = moment().format('YYYYMMDDHHmmss')+'_'+this.file.name
@@ -174,6 +178,7 @@ export default {
                     dataType: 'json',
                 }
             }).then(res=>{
+                this.loadimg = false 
                 this.receipt=  addObj.receipt 
                 console.log(res.data)
             })
