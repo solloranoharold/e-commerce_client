@@ -220,7 +220,7 @@ export default {
             {text:'Payment Method' , align:'center' , value:'type_of_payment'},
             {text:'Receipt(Gcash)' , align:'center' , value:'receipt'},
             {text:'Ordered Date' , align:'center' , value:'DateCreated'},
-            {text:'Actions' , align:'center' , value:'action'}
+            {text:'Status' , align:'center' , value:'action'}
         ],
         Orders:[],
         dialog:false,

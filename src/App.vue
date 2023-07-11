@@ -12,31 +12,31 @@
           <v-list-item-icon>
             <v-icon large>mdi-account-box-multiple</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Account's</v-list-item-title>
+          <v-list-item-title>Account</v-list-item-title>
         </v-list-item>
         <v-list-item to="/menu">
           <v-list-item-icon>
             <v-icon large>mdi-menu</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Menu's</v-list-item-title>
+          <v-list-item-title>Menu</v-list-item-title>
         </v-list-item>
         <v-list-item to="/shipping">
           <v-list-item-icon>
             <v-icon large>mdi-receipt-text</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Shipping Fee's</v-list-item-title>
+          <v-list-item-title>Shipping Fee</v-list-item-title>
         </v-list-item>
         <v-list-item to="/myoders">
           <v-list-item-icon>
             <v-icon large>mdi-access-point</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Order's</v-list-item-title>
+          <v-list-item-title>Order</v-list-item-title>
         </v-list-item>
         <v-list-item to="/reports">
           <v-list-item-icon>
             <v-icon large>mdi-chart-bar</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>Report's</v-list-item-title>
+          <v-list-item-title>Report</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
