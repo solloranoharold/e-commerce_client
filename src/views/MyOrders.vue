@@ -5,7 +5,7 @@
         <br/>
         <h2 class="text-center">ORDERS</h2>
         <center v-if="userInfo.type=='USER'">
-            <v-flex md6 v-for="(item , i ) in Orders" :key="i">
+            <v-flex md6 v-for="(item , i ) in getData" :key="i">
             <v-card>
                <v-toolbar flat dense>
                 <v-toolbar-title>{{ item.invoice_id }}</v-toolbar-title>
@@ -69,8 +69,16 @@
         <v-data-table v-else
         disable-pagination
         hide-default-footer
-        :headers="headers" :items="Orders" dense
+        :headers="headers" :items="getData" dense
         >
+            <template v-slot:top>
+                <v-toolbar flat dense>
+                    <v-spacer/>
+                    <v-flex md3 xs3>
+                        <v-autocomplete  clearable label="Status" dense v-model="status" :items="statuses" rounded outlined item-text="text" item-value="val"></v-autocomplete>
+                    </v-flex>
+                </v-toolbar>
+            </template>
             <template v-slot:[`item.status`]="{item}">
                 <v-chip small class="ma-2" text-color="white" :color="item.orderStatus==1 ? 'orange' : item.orderStatus==2 ? 'blue' : item.orderStatus==3 ? 'red': 'success'">
                     {{ item.orderStatus == 1 ? 'Pending' : item.orderStatus == 2 ? 'For Delivery' : item.orderStatus==3?'Cancelled':'Delivered' }}
@@ -212,6 +220,14 @@ import moment from 'moment'
 import _ from 'lodash'
 export default {
     data:()=>({
+        search:"",
+        status:'',
+        statuses:[
+            {text:'Pending' ,val:1 },
+            {text:'For Delivery' ,val:2 },
+            {text:'Delivered' ,val:4 },
+            {text:'Cancelled' ,val:3},
+        ],
         headers:[
             {text:'Invoice' , align:'center' , value:'invoice_id'},
             {text:'Fullname',align:'center',value:'fullname'},
@@ -235,6 +251,17 @@ components: {
   created(){
     this.loadOrders()
     this.loadNotifications()
+  },
+  computed:{
+    getData(){
+        return this.Orders.filter(rec=>{ 
+             if(this.status){
+                    return rec.orderStatus == this.status
+            }else{
+                return rec 
+            }
+        })
+    }
   },
   methods:{
     loadOrders(){
