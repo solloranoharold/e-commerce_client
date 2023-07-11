@@ -150,9 +150,15 @@ export default {
             if(this.addObj.password.toUpperCase() == this.addObj.cpass.toUpperCase()){
                 this.generatedOTP = generateString(6).toUpperCase()
                 this.loading= true
-                axios.post(`${this.api}email/sendOTP`,{email: this.addObj.email , otp: this.generatedOTP }).then(()=>{ 
+                axios.post(`${this.api}email/sendOTP`,{email: this.addObj.email , otp: this.generatedOTP }).then((r)=>{ 
+                    // console.log(r)
+                    if(r.data!='error'){
+                        this.otpDialog=true
+                    }else{
+                        alert('Please check your email if it is valid!')
+                    }
                     this.loading = false 
-                    this.otpDialog=true
+                    
                 })
             }else{
                 alert('Password and Confirm password not matched!')
