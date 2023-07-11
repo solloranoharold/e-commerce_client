@@ -186,7 +186,8 @@
             <v-card>
                 <v-toolbar flat dense dark color="green darken-2">
                     <v-toolbar-title>Upload Receipt</v-toolbar-title>
-                    <v-icon @click="openUploadDialog = !openUploadDialog">mdi-close</v-icon>
+                    <v-spacer/>
+                    <v-icon @click="uploadDialog = !uploadDialog">mdi-close</v-icon>
                 </v-toolbar>
                 <v-card-text>
                     <v-file-input
