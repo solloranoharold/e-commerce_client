@@ -1,8 +1,14 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" fixed app v-if="userInfo && userInfo.type == 'ADMIN'" width="200">
+    <v-navigation-drawer v-model="drawer" fixed app v-if="userInfo && userInfo.type == 'ADMIN' && $route.name!='Sales'" width="200">
       <v-list dense>
-        <v-list-item to="/">
+            <!-- <v-list-item to="/reports">
+          <v-list-item-icon>
+            <v-icon large>mdi-chart-bar</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Report</v-list-item-title>
+        </v-list-item> -->
+        <v-list-item to="/reports">
           <v-list-item-icon>
             <v-icon large>mdi-home</v-icon>
           </v-list-item-icon>
@@ -32,12 +38,7 @@
           </v-list-item-icon>
           <v-list-item-title>Order</v-list-item-title>
         </v-list-item>
-        <v-list-item to="/reports">
-          <v-list-item-icon>
-            <v-icon large>mdi-chart-bar</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Report</v-list-item-title>
-        </v-list-item>
+    
       </v-list>
     </v-navigation-drawer>
     <v-dialog v-model="dialog" persistent scrollable max-width="400px" v-if="userInfo">
@@ -68,12 +69,12 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <v-app-bar app dense permanent  flat dark color="#B71C1C">
+    <v-app-bar app dense permanent  flat dark color="#B71C1C" v-if="$route.name!='Sales'">
       <v-app-bar-nav-icon v-if="userInfo && userInfo.type=='ADMIN' " @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-avatar
         class="profile"
         color="grey"
-        size="100"
+        size="55"
       >
         <v-img  src="./assets/referrence/logo.jpg"></v-img>
       </v-avatar>
