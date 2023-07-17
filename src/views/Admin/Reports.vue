@@ -12,6 +12,19 @@
        
        </div>
   <v-container fluid v-else>
+    <v-dialog v-model="reportdialog" max-width="500px">
+        <v-card>
+            <v-toolbar  dense dark color="green" flat> 
+                <v-toolbar-title>Generate Sales {{year}}</v-toolbar-title>
+            </v-toolbar>
+            <v-card-text>
+                <v-container fluid>
+                    <v-autocomplete v-model="selectedmonth" dense outlined rounded label="Select Month" :items="Months" item-text="str" item-value="month"></v-autocomplete>
+                    <v-btn small rounded block @click="generate()">GENERATE</v-btn>
+                </v-container>
+            </v-card-text>
+        </v-card>
+    </v-dialog>
      <v-row>
         <v-col lg="4" md="4" xs="12" sm="12">
             <v-card>
@@ -135,6 +148,7 @@
      <br/>
      <h1 class="text-center"><v-icon x-large>mdi-chart-bar-stacked</v-icon>OVERALL CHART DATA</h1>
      <v-layout>
+        <v-btn small rounded color="green" dark @click="openGeneratesales()"><v-icon>mdi-cash-multiple</v-icon>Generate Sales</v-btn>
         <v-spacer/>
        <v-flex md1>
         <v-autocomplete @change="LoadRecords()" v-model="year" hide-details dense outlined item-text="year" :items="Years"/>
@@ -158,6 +172,22 @@ export default {
         LineChart,BarChart
     },
     data:()=>({
+         reportdialog:false ,
+         selectedmonth: null, 
+        Months:[ 
+            {x:0,month:'01',str:'JANUARY' },
+            {x:0,month:'02',str:'FEBRUARY' },
+            {x:0,month:'03',str:'MARCH' },
+            {x:0,month:'04',str:'APRIL' },
+            {x:0,month:'05',str:'MAY' },
+            {x:0,month:'06',str:'JUNE' },
+            {x:0,month:'07',str:'JULY' },
+            {x:0,month:'08',str:'AUGUST' },
+            {x:0,month:'09',str:'SEPTEMBER' },
+            {x:0,month:'10',str:'OCTOBER' },
+            {x:0,month:'11',str:'NOVEMBER' },
+            {x:0,month:'12' ,str:'DECEMBER'}
+            ],
         year: null,
         Years:[],
         Records:[],
@@ -194,7 +224,8 @@ export default {
                 }]
             },
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+           
         },
     }),
     created(){
@@ -249,6 +280,16 @@ export default {
         }
     },
     methods:{ 
+        generate(){
+            if(!this.selectedmonth){
+                alert('Please select month')
+                return false 
+            }
+            this.$router.push(`/sales/${this.year}/${this.selectedmonth}`)
+        },
+        openGeneratesales(){
+            this.reportdialog = true 
+        },
         loadYears(){
             axios.get(`${this.api}loadYears`).then(res=>{ 
                 if(res.data){
@@ -258,26 +299,13 @@ export default {
             })
         },
         LoadRecords(){
-            let Months=[ 
-            {x:0,month:'01' },
-            {x:0,month:'02' },
-            {x:0,month:'03' },
-            {x:0,month:'04' },
-            {x:0,month:'05' },
-            {x:0,month:'06' },
-            {x:0,month:'07' },
-            {x:0,month:'08' },
-            {x:0,month:'09' },
-            {x:0,month:'10' },
-            {x:0,month:'11' },
-            {x:0,month:'12' }
-            ]
+            
           
 
             this.loading=true 
             axios.get(`${this.api}loadRecords/${this.year}`).then(res=>{
                 if(res.data){
-                    let data =  Months.map(item=>{ 
+                    let data =  this.Months.map(item=>{ 
                         res.data.filter(rec=>{ 
                             if(rec.created_at.includes(`${this.year}-${item.month}`)) item.x+=rec.total_price
                         })
