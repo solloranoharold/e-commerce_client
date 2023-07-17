@@ -44,6 +44,7 @@ export default {
             axios.get(`${this.api}login/${this.email}/${this.password}`).then(res=>{
                 if(res.data){
                     if(res.data.length > 0 ){
+                        // console.log(res.data[0])
                         this.$store.commit('STORE_USERINFO' , res.data[0])
                         alert('Welcome : ' + res.data[0].email)
                         setTimeout(() => {
