@@ -46,8 +46,11 @@ export default {
                     if(res.data.length > 0 ){
                         this.$store.commit('STORE_USERINFO' , res.data[0])
                         alert('Welcome : ' + res.data[0].email)
-                        if(res.data[0].type=='ADMIN') this.$router.push('/reports');
-                        else this.$router.push('/')
+                        setTimeout(() => {
+                            if(res.data[0].type=='ADMIN') this.$router.push('/reports');
+                            else this.$router.push('/')
+                        }, 500);
+                      
                     }else{
                         alert('No Account Found!')
                     }
