@@ -72,6 +72,7 @@
     <v-app-bar app dense permanent  flat dark color="#B71C1C" v-if="$route.name!='Sales'">
       <v-app-bar-nav-icon v-if="userInfo && userInfo.type=='ADMIN' " @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-avatar
+      @click="userInfo && userInfo.type == 'ADMIN' ? goToServer(): ''"
         class="profile"
         color="grey"
         size="55"
@@ -241,6 +242,9 @@ export default {
    
   },
   methods:{
+    goToServer(){
+      this.$router.push('/reports')
+    },
     openProfile(){
       this.dialog = !this.dialog
     },
