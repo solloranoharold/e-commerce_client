@@ -14,6 +14,7 @@ import About from '../views/About.vue'
 import ShippingFee from '../views/ShippingFees.vue'
 import Accounts from '../views/Accounts.vue'
 import Reports from '../views/Admin/Reports.vue'
+import Sales from '../views/Admin/GenerateSales.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -77,6 +78,11 @@ const routes = [
     path: '/reports',
     name: 'Reports',
     component: Reports
+  },
+  {
+    path: '/sales/:year/:month',
+    name: 'Sales',
+    component: Sales
   },
 ]
 
