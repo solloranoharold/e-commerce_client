@@ -34,8 +34,8 @@
                     </template>
                     <span>Cancel</span>
                 </v-tooltip>
-                 <v-chip small class="ma-2" text-color="white" :color="item.orderStatus==1 ? 'orange' : item.orderStatus==2 ? 'blue' : item.orderStatus==3 ? 'red': 'success'">
-                    {{ item.orderStatus == 1 ? 'Pending' : item.orderStatus == 2 ? 'For Delivery' : item.orderStatus==3?'Cancelled':'Delivered' }}
+                 <v-chip small class="ma-2" text-color="white" :color="item.orderStatus==1 ? 'orange' : item.orderStatus==2 ? 'blue' : item.orderStatus==3 ? 'red':item.orderStatus==4? '#607D8B' :  'success'">
+                    {{ item.orderStatus == 1 ? 'Pending' : item.orderStatus == 2 ? 'For Delivery' : item.orderStatus==3?'Cancelled':item.orderStatus==4 ? 'Preparing' : 'Delivered' }}
                     
                 </v-chip>
                </v-toolbar>
@@ -80,8 +80,8 @@
                 </v-toolbar>
             </template>
             <template v-slot:[`item.status`]="{item}">
-                <v-chip small class="ma-2" text-color="white" :color="item.orderStatus==1 ? 'orange' : item.orderStatus==2 ? 'blue' : item.orderStatus==3 ? 'red': 'success'">
-                    {{ item.orderStatus == 1 ? 'Pending' : item.orderStatus == 2 ? 'For Delivery' : item.orderStatus==3?'Cancelled':'Delivered' }}
+                <v-chip small class="ma-2" text-color="white" :color="item.orderStatus==1 ? 'orange' : item.orderStatus==2 ? 'blue' : item.orderStatus==3 ? 'red':item.orderStatus==4? '#607D8B' : 'success'">
+                    {{ item.orderStatus == 1 ? 'Pending' : item.orderStatus == 2 ? 'For Delivery' : item.orderStatus==3?'Cancelled':item.orderStatus==4 ? 'Preparing':'Delivered' }}
                     
                 </v-chip>
             </template>
@@ -91,7 +91,7 @@
                 </a>
             </template>
             <template v-slot:[`item.action`]="{item}">
-                <v-tooltip bottom  v-if="item.type_of_payment=='Gcash' && item.orderStatus == 1" >
+                <v-tooltip bottom  v-if="item.type_of_payment=='Gcash' && item.orderStatus == 1 && userInfo.type!='ADMIN'" >
                     <template v-slot:activator="{ on, attrs }">
                         <v-icon @click="openUploadDialog(item)" color="primary" v-bind="attrs" v-on="on">mdi-upload</v-icon>
                     </template>
@@ -127,6 +127,12 @@
                     </template>
                     <span>Cancel</span>
                 </v-tooltip>
+                 <v-tooltip bottom v-if="item.orderStatus == 1">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-icon color="black" @click="updateStatus( item , 4)" v-bind="attrs" v-on="on">mdi-chef-hat</v-icon>
+                    </template>
+                    <span>Preparing</span>
+                </v-tooltip>
             </template>
         </v-data-table>
 
@@ -134,7 +140,7 @@
         <v-dialog v-model="dialog" scrollable persistent max-width="900px">
             <v-card>
                 <v-toolbar flat dense dark color="green darken-2">
-                    <v-toolbar-title>{{ addObj.invoice_id }}  ( {{ addObj.orderStatus == 1 ? 'PENDING' : addObj.orderStatus == 2 ? 'FOR DELIVERY' : addObj.orderStatus==3 ? 'CANCELLED':'DELIVERED' }} )</v-toolbar-title>
+                    <v-toolbar-title>{{ addObj.invoice_id }}  ( {{ addObj.orderStatus == 1 ? 'PENDING' : addObj.orderStatus == 2 ? 'FOR DELIVERY' : addObj.orderStatus==3 ? 'CANCELLED':addObj.orderStatus == 4 ?'PREPARING' :'DELIVERED' }} )</v-toolbar-title>
                     <v-spacer/>
                     <v-icon @click="dialog = !dialog">mdi-close</v-icon>
                    
@@ -303,7 +309,7 @@ components: {
     },
     updateStatus(item , val ){
          
-        let status = val == 1 ? 'PENDING' : val == 2 ? 'FOR DELIVERY' : val==3 ? 'CANCEL':'FINISHED' 
+        let status = val == 1 ? 'PENDING' : val == 2 ? 'FOR DELIVERY' : val==3 ? 'CANCEL': val ==4 ? 'PREPARE' : 'FINISHED' 
         if(confirm(`Are you sure you want to ${status} this order ? `)){
            item.orderStatus = val 
             axios.post(`${this.api}updateOrderStatus` , item ).then(res=>{
