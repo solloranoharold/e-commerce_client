@@ -12,6 +12,7 @@
                 <v-col v-for="(item , i ) in Products" :key="i">
                   <center>
                      <v-avatar
+                      @click="orderNow()"
                       class="profile"
                       color="grey"
                       size="250"
@@ -82,7 +83,15 @@ export default {
                     })
                 }
             })
-    }
+    },
+    orderNow(){
+      if(this.userInfo){
+        this.$router.push('/menu')
+      }else{
+        alert('Please login first')
+        this.$router.push('/login')
+      }
+    },
   }
 }
 </script>

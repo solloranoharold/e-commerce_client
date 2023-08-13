@@ -17,7 +17,7 @@
         <v-container fluid style="background-color:#B71C1C;" v-if="$route.name=='Home'">
         <v-carousel hide-delimiters  cycle  
         hide-delimiter-background>
-            <v-carousel-item v-for="(item , i ) in Products" :key="i" :src="`http://:3001/ftp/uploads/products/${item.img_product}`">
+            <v-carousel-item v-for="(item , i ) in Products" :key="i" :src="`${filelister}products/${item.img_product}`">
                 <v-overlay absolute>
                     <h2 style="color:white; " class=" text-center header">EDWIN YAP</h2>
                     <h4 style="color:white;" class="text-center banner1">LECHON</h4>
